@@ -17,8 +17,11 @@ async function pokeAPI() {
         pokePic.src = imagePath;
 
         const one = document.getElementById("one");
+        one.textContent = "blank";
         const two = document.getElementById("two");
+        two.textContent = "blank";
         const three = document.getElementById("three");
+        three.textContent = "blank";
 
         const list = [one, two, three];
 
@@ -115,7 +118,8 @@ async function pokeAPI() {
             }
             infoCard.innerHTML = cardHTML;
             infoCard.style.lineHeight = 1;
-            if (infoCard.textContent.split(',').length > 80) {
+            infoCard.style.fontSize = "26px";
+            if (infoCard.textContent.split(',').length > 70) {
                 infoCard.style.fontSize = "15px";
             }
 
