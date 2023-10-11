@@ -76,6 +76,7 @@ async function pokeAPI() {
         const movesButton = document.getElementById("movesButton");
 
         infoButton.addEventListener("click", (event) => {
+            infoCard.textContent = "";
             movesButton.style.backgroundColor = "#E8E8E8";
             infoButton.style.backgroundColor = "#7CFF79";
             const hp = stats[0].base_stat;
@@ -119,24 +120,6 @@ async function pokeAPI() {
             }
 
         });
-
-        const leftArrow = document.getElementById("leftArrow");
-        leftArrow.addEventListener("click", (event) => {
-            if (id != 1) {
-                id--;
-            }
-            pokeAPI();
-        });
-
-        const rightArrow = document.getElementById("rightArrow");
-        rightArrow.addEventListener("click", (event) => {
-            if (id != 1017) {
-                id++;
-            }
-            pokeAPI();
-        });
-
-
       })
       .catch((error) => {
         console.error("There was a problem fetching the pokemon data:", error);
@@ -144,3 +127,20 @@ async function pokeAPI() {
       });
 }
 pokeAPI();
+const leftArrow = document.getElementById("leftArrow");
+leftArrow.addEventListener("click", (event) => {
+    if (id != 1) {
+        id--;
+    }
+    infoCard.textContent = "";
+    pokeAPI();
+});
+
+const rightArrow = document.getElementById("rightArrow");
+rightArrow.addEventListener("click", (event) => {
+    if (id <= 1016) {
+        id++;
+    }
+    infoCard.textContent = "";
+    pokeAPI();
+});
