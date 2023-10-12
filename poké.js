@@ -119,10 +119,9 @@ async function pokeAPI() {
             infoCard.innerHTML = cardHTML;
             infoCard.style.lineHeight = 1;
             infoCard.style.fontSize = "26px";
-            if (infoCard.textContent.split(',').length > 70) {
+            if (infoCard.textContent.split(',').length > 60) {
                 infoCard.style.fontSize = "15px";
             }
-
         });
       })
       .catch((error) => {
@@ -137,6 +136,8 @@ leftArrow.addEventListener("click", (event) => {
         id--;
     }
     infoCard.textContent = "";
+    infoButton.style.backgroundColor = "#E8E8E8";
+    movesButton.style.backgroundColor = "#E8E8E8";
     pokeAPI();
 });
 
@@ -146,5 +147,7 @@ rightArrow.addEventListener("click", (event) => {
         id++;
     }
     infoCard.textContent = "";
+    infoButton.style.backgroundColor = "#E8E8E8";
+    movesButton.style.backgroundColor = "#E8E8E8";
     pokeAPI();
 });
