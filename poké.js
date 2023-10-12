@@ -1,5 +1,4 @@
 let id = 1;
-//const URL = `https://pokeapi.co/api/v2/pokemon/${id}/`;
 
 async function pokeAPI() {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
@@ -29,39 +28,39 @@ async function pokeAPI() {
             const typeName = types[i].type.name;
             const item = list[i];
             item.innerHTML = typeName;
-            if (typeName == "normal") {
+            if (typeName === "normal") {
                 item.style.backgroundColor = "#A8A77A";
-            } else if (typeName == "fire") {
+            } else if (typeName === "fire") {
                 item.style.backgroundColor = "#EE8130";
-            } else if (typeName == "water") {
+            } else if (typeName === "water") {
                 item.style.backgroundColor = "#6390F0";
-            } else if (typeName == "electric") {
+            } else if (typeName === "electric") {
                 item.style.backgroundColor = "#F7D02C";
-            } else if (typeName == "grass") {
+            } else if (typeName === "grass") {
                 item.style.backgroundColor = "#7AC74C";
-            } else if (typeName == "ice") {
+            } else if (typeName === "ice") {
                 item.style.backgroundColor = "#96D9D6";
-            } else if (typeName == "fighting") {
+            } else if (typeName === "fighting") {
                 item.style.backgroundColor = "#C22E28";
-            } else if (typeName == "poison") {
+            } else if (typeName === "poison") {
                 item.style.backgroundColor = "#A33EA1";
-            } else if (typeName == "ground") {
+            } else if (typeName === "ground") {
                 item.style.backgroundColor = "#E2BF65";
-            } else if (typeName == "flying") {
+            } else if (typeName === "flying") {
                 item.style.backgroundColor = "#A98FF3";
-            } else if (typeName == "psychic") {
+            } else if (typeName === "psychic") {
                 item.style.backgroundColor = "#F95587";
-            } else if (typeName == "bug") {
+            } else if (typeName === "bug") {
                 item.style.backgroundColor = "#A6B91A";
-            } else if (typeName == "rock") {
+            } else if (typeName === "rock") {
                 item.style.backgroundColor = "#B6A136";
-            } else if (typeName == "ghost") {
+            } else if (typeName === "ghost") {
                 item.style.backgroundColor = "#735797";
-            } else if (typeName == "dragon") {
+            } else if (typeName === "dragon") {
                 item.styl.backgroundColor = "#6F35FC";
-            } else if (typeName == "dark") {
+            } else if (typeName === "dark") {
                 item.style.backgroundColor = "#705746";
-            } else if (typeName == "steel") {
+            } else if (typeName === "steel") {
                 item.style.backgroundColor = "#B7B7CE";
             } else {
                 item.style.backgroundColor = "#D685AD";
@@ -69,7 +68,9 @@ async function pokeAPI() {
         }
 
         for (const item of list) {
-            if (item.textContent == "blank") {
+            if (item.textContent != "blank") {
+                item.hidden = false;
+            } else {
                 item.hidden = true;
             }
         }
@@ -77,6 +78,53 @@ async function pokeAPI() {
         const infoCard = document.getElementById("infoCard");
         const infoButton = document.getElementById("infoButton");
         const movesButton = document.getElementById("movesButton");
+        const colorInfo = getComputedStyle(infoButton).backgroundColor;
+        const colorMoves = getComputedStyle(movesButton).backgroundColor;
+
+        if (colorInfo === "rgb(124, 255, 121)") {
+            movesButton.style.backgroundColor = "#E8E8E8";
+            infoButton.style.backgroundColor = "#7CFF79";
+            const hp = stats[0].base_stat;
+            const attack = stats[1].base_stat;
+            const defense = stats[2].base_stat;
+            const specialAttack = stats[3].base_stat;
+            const specialDefense = stats[4].base_stat;
+            const speed = stats[5].base_stat;
+    
+            const cardHtml = `
+                    <p>height: ${(height * 0.1).toFixed(1)}m</p>
+                    <p>weight: ${(weight / 10).toFixed(1)}kg</p>
+                    <p>hp: ${hp}</p>
+                    <p>attack: ${attack}</p>
+                    <p>defense: ${defense}</p>
+                    <p>special-attack: ${specialAttack}</p>
+                    <p>special-defense: ${specialDefense}</p>
+                    <p>speed: ${speed}</p>
+                `;
+            infoCard.innerHTML = cardHtml;
+            infoCard.style.lineHeight = 0.3;
+            infoCard.style.fontSize = "26px";
+        }
+
+        if (colorMoves === "rgb(124, 255, 121)") {
+            infoButton.style.backgroundColor = "#E8E8E8";
+            movesButton.style.backgroundColor = "#7CFF79";
+            infoCard.textContent = "";
+            let cardHTML = "";
+            for (let i = 0; i < moves.length; i++) {
+                if (i != moves.length - 1) {
+                    cardHTML += `${moves[i].move.name}, `;
+                } else {
+                    cardHTML += `${moves[i].move.name}`;
+                }
+            }
+            infoCard.innerHTML = cardHTML;
+            infoCard.style.lineHeight = 1;
+            infoCard.style.fontSize = "26px";
+            if (infoCard.textContent.split(',').length > 60) {
+                infoCard.style.fontSize = "15px";
+            }
+        }
 
         infoButton.addEventListener("click", (event) => {
             infoCard.textContent = "";
@@ -130,14 +178,12 @@ async function pokeAPI() {
       });
 }
 pokeAPI();
+
 const leftArrow = document.getElementById("leftArrow");
 leftArrow.addEventListener("click", (event) => {
     if (id != 1) {
         id--;
     }
-    infoCard.textContent = "";
-    infoButton.style.backgroundColor = "#E8E8E8";
-    movesButton.style.backgroundColor = "#E8E8E8";
     pokeAPI();
 });
 
@@ -146,8 +192,5 @@ rightArrow.addEventListener("click", (event) => {
     if (id <= 1016) {
         id++;
     }
-    infoCard.textContent = "";
-    infoButton.style.backgroundColor = "#E8E8E8";
-    movesButton.style.backgroundColor = "#E8E8E8";
     pokeAPI();
 });

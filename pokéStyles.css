@@ -24,7 +24,7 @@
     width: 385px;   
     height: 460px;
     background: #E8E8E8;
-    margin-top: -8px;
+    margin-top: -12px;
     color: #000;
     font-family: sans-serif;
     font-size: 26px;
@@ -34,6 +34,7 @@
     padding-left: 25px;
     padding-top: 15px;
     padding-right: 25px;
+    padding-bottom: 12px;
 }
 
 .info {
@@ -46,7 +47,7 @@
 .rightButtons {
     display: flex;
     flex-direction: row;
-    margin-top: 32px;
+    margin-top: 28px;
 }
 
 #infoButton {
@@ -85,7 +86,6 @@
     font-weight: 400;
     border: none;
     outline: none;
-    
 }
 
 #movesButton:hover {
